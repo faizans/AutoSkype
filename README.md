@@ -12,7 +12,9 @@ Setup
 
 Clone the repository
 Rename the `desired_callers.txt.sample` to `desired_callers.txt`.
+
 Enter some Skype ID's _one ID per line_ in the newly renamed file.
+
 Export the Script as an Application and run it.
 
 Enjoy!
