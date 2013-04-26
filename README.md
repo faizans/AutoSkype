@@ -1,11 +1,8 @@
-AutoSkype About
-==============
-
-Skype Automation on OSX
+AutoSkype - Skype Automation on OSX
+===================================
 
 This little tool will allow you to set up a white list of callers whose calls get accepted automatically.
-
-There is an option that allows you enable your video or not.
+There is also an option that allows you to automatically enable your camera.
 
 Setup
 =====
