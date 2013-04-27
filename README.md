@@ -6,7 +6,8 @@ Setup
 =====
 
 Clone the repository
-Rename the `desired_callers.txt.sample` to `desired_callers.txt`.
+
+Rename the `desired_callers.txt.sample` to `desired_callers.txt`.  
 Enter some Skype ID's _one ID per line_ in the newly renamed file.
 
 Run `make` on the console to build the bundle.
