@@ -2,7 +2,10 @@ set working_directory to POSIX file ((POSIX path of (path to me)) & "/..") as te
 set desired_callers_file to (working_directory & "desired_callers.txt")
 set desired_callers to {}
 
-set autoVideo to false # start video-call automatically
+set start_app_msg to "Skype is not running right now.. do you want to start Skype now?"
+set start_app_video to "There is no video conference running, do you want to start a video conference now?"
+
+set autoVideo to true # start video-call automatically
 set scanDelay to 5 # seconds
 
 set callers to paragraphs of (read file desired_callers_file)
@@ -17,7 +20,7 @@ end repeat
 # State handling
 repeat
 	if not ApplicationIsRunning("Skype") then
-		set clickedButton to button returned of (display dialog "Skype is not running right now.. do you want to start Skype now?" buttons {"Stop AutoSkype", "Start Skype"} default button "Start Skype")
+		set clickedButton to button returned of (display dialog start_app_msg buttons {"Stop AutoSkype", "Start Skype"} default button "Start Skype")
 		
 		if clickedButton is "Start Skype" then
 			tell application "Skype" to activate
@@ -35,7 +38,11 @@ repeat
 					log "desired caller!!"
 					send command "ALTER CALL " & callID & " ANSWER" script name "AutoSkype"
 				else if autoVideo then
-					send command "ALTER CALL " & callID & " START_VIDEO_SEND" script name "AutoSkype"
+					set video_status to last word of (send command "GET CALL " & callID & " VIDEO_SEND_STATUS" script name "AutoSkype")
+					
+					if video_status is "AVAILABLE" then
+						send command "ALTER CALL " & callID & " START_VIDEO_SEND" script name "AutoSkype"
+					end if
 				end if
 			end if
 		end tell
@@ -44,7 +51,7 @@ repeat
 	delay scanDelay
 end repeat
 
-# found at Vincent Gable’s Blog
+# Vincent Gable’s Blog,
 # http://vgable.com/blog/2009/04/24/how-to-check-if-an-application-is-running-with-applescript/
 on ApplicationIsRunning(appName)
 	tell application "System Events" to set appNameIsRunning to exists (processes where name is appName)
